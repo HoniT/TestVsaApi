@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using src.Features;
+using src.Features.Employees.Add;
 using src.Features.Employees.GetAll;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<GetAllEmployeesHandler>();
+builder.Services.AddScoped<AddEmployeeHandler>();
 
 var app = builder.Build();
 
@@ -27,6 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 GetAllEmployeesEndpoint.Map(app);
+AddEmployeeEndpoint.Map(app);
 
 app.UseHttpsRedirection();
 

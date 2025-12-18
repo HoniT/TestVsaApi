@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace src.Features.Employees
+namespace api.Dtos.Employee
 {
-    public class Employee
+    public class CreateEmployeeDto
     {
-        public int Id { get; set; }
         [Required]
         [MinLength(1, ErrorMessage = "Enter a valid name")]
         public string Name { get; set; } = string.Empty;

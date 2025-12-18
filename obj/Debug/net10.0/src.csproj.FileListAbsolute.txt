@@ -219,3 +219,4 @@ C:\Users\admin\VSA_API\src\obj\Debug\net10.0\refint\src.dll
 C:\Users\admin\VSA_API\src\obj\Debug\net10.0\src.pdb
 C:\Users\admin\VSA_API\src\obj\Debug\net10.0\src.genruntimeconfig.cache
 C:\Users\admin\VSA_API\src\obj\Debug\net10.0\ref\src.dll
+C:\Users\admin\VSA_API\src\obj\Debug\net10.0\src.sourcelink.json

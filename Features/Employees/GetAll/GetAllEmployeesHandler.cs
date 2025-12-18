@@ -24,7 +24,8 @@ namespace src.Features.Employees.GetAll
                     Id = e.Id,
                     Name = e.Name,
                     LastName = e.LastName,
-                    Position = e.Position 
+                    Position = e.Position ,
+                    Salary = e.Salary
                 })
                 .ToListAsync(ct);
 
