@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Dtos.Employee;
 using Microsoft.AspNetCore.Mvc;
 
 namespace src.Features.Employees.Add

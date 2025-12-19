@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Employee
+namespace src.Features.Employees.Update
 {
-    public class CreateEmployeeDto
+    public class UpdateEmployeeDto
     {
         [Required]
         [MinLength(1, ErrorMessage = "Enter a valid name")]

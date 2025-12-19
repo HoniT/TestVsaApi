@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace src.Features.Employees.Add
+namespace src.Features.Employees.Delete
 {
-    public record AddEmployeeResponse(
+    public record DeleteEmployeeResponse(
         Employee Employee
     );
 }
