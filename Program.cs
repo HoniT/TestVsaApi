@@ -4,6 +4,8 @@ using src.Features.Employees.Add;
 using src.Features.Employees.Delete;
 using src.Features.Employees.GetAll;
 using src.Features.Employees.Update;
+using src.Features.Files.Download;
+using src.Features.Files.Upload;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,9 @@ builder.Services.AddScoped<AddEmployeeHandler>();
 builder.Services.AddScoped<UpdateEmployeeHandler>();
 builder.Services.AddScoped<DeleteEmployeeHandler>();
 
+builder.Services.AddScoped<FileUploadHandler>();
+builder.Services.AddScoped<FileDownloadHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,6 +41,11 @@ GetAllEmployeesEndpoint.Map(app);
 AddEmployeeEndpoint.Map(app);
 UpdateEmployeeEndpoint.Map(app);
 DeleteEmployeeEndpoint.Map(app);
+
+FileUploadEndpoint.Map(app);
+FileDownloadEndpoint.Map(app);
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
