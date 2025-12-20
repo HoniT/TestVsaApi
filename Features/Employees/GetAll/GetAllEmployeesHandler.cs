@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace src.Features.Employees.GetAll
 {
     public class GetAllEmployeesHandler
+        : IRequestHandler<GetAllEmployeesCommand, GetAllEmployeesResponse>
     {
         private readonly ApplicationDbContext _context;
         public GetAllEmployeesHandler(ApplicationDbContext context)
@@ -14,8 +16,9 @@ namespace src.Features.Employees.GetAll
             _context = context;
         }
 
-        public async Task<GetAllEmployeesResponse> HandleAsync(
-        CancellationToken ct)
+        public async Task<GetAllEmployeesResponse> Handle(
+            GetAllEmployeesCommand request,
+            CancellationToken ct)
         {
             var employees = await _context.Employees
                 .AsNoTracking()

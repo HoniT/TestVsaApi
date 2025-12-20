@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace src.Features.Employees.Delete
 {
@@ -11,9 +12,10 @@ namespace src.Features.Employees.Delete
         {
             app.MapDelete("/employees", async (
                 int id,
-                DeleteEmployeeHandler handler) =>
+                IMediator mediator) =>
             {
-                var result = await handler.HandleAsync(id);
+                var command = new DeleteEmployeeCommand(id);
+                var result = await mediator.Send(command);
                 return Results.Ok(result);
             })
             .WithName("DeleteEmployee")

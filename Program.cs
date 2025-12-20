@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using src.Features;
 using src.Features.Employees.Add;
@@ -19,10 +20,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddMediatR(typeof(Program));
+
 builder.Services.AddScoped<GetAllEmployeesHandler>();
-builder.Services.AddScoped<AddEmployeeHandler>();
 builder.Services.AddScoped<UpdateEmployeeHandler>();
-builder.Services.AddScoped<DeleteEmployeeHandler>();
 
 builder.Services.AddScoped<FileUploadHandler>();
 builder.Services.AddScoped<FileDownloadHandler>();

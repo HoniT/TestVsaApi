@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 namespace src.Features.Employees.Add
 {
@@ -12,9 +8,10 @@ namespace src.Features.Employees.Add
         {
             app.MapPost("/employees", async (
                 CreateEmployeeDto employeeDto,
-                AddEmployeeHandler handler) =>
+                IMediator mediator) =>
             {
-                var result = await handler.HandleAsync(employeeDto);
+                var command = new AddEmployeeCommand(employeeDto);
+                var result = await mediator.Send(command);
                 return Results.Ok(result);
             })
             .WithName("AddEmployee")

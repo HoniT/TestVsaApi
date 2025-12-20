@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace src.Features.Employees.Update
 {
@@ -13,9 +14,10 @@ namespace src.Features.Employees.Update
             app.MapPut("/employees", async (
                 int id,
                 UpdateEmployeeDto dto,
-                UpdateEmployeeHandler handler) =>
+                IMediator mediator) =>
             {
-                var result = await handler.HandleAsync(id, dto);
+                var command = new UpdateEmployeeCommand(id, dto);
+                var result = await mediator.Send(command);
                 return Results.Ok(result);
             })
             .WithName("UpdateEmployee")
