@@ -1,8 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace src.Features.Files.Download
 {
     public class FileDownloadHandler
+        : IRequestHandler<FileDownloadCommand, IResult>
     {
         private readonly IWebHostEnvironment _env;
 
@@ -11,7 +13,9 @@ namespace src.Features.Files.Download
             _env = env;
         }
 
-        public IResult Handle(string fileName)
+        public async Task<IResult> Handle(
+            FileDownloadCommand request,
+            CancellationToken ct)
         {
             var uploadDir = Path.Combine(
                 _env.WebRootPath,
@@ -19,7 +23,7 @@ namespace src.Features.Files.Download
                 "Files"
             );
 
-            var path = Path.Combine(uploadDir, fileName);
+            var path = Path.Combine(uploadDir, request.fileName);
 
             if (!File.Exists(path))
                 return Results.NotFound();
@@ -27,8 +31,9 @@ namespace src.Features.Files.Download
             return Results.File(
                 path,
                 "application/octet-stream",
-                fileName
+                request.fileName
             );
         }
+
     }
 }

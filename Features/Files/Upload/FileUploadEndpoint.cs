@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using src.Features.Files.Upload;
@@ -9,11 +10,13 @@ namespace src.Features.Files.Upload
         public static void Map(IEndpointRouteBuilder app)
         {
             app.MapPost("/multiupload", async (
-                [FromForm] IFormFileCollection files,
-                FileUploadHandler handler,
-                HttpContext context) =>
+                IFormFileCollection files,
+                HttpContext context,
+                IMediator mediator) =>
             {
-                return await handler.HandleAsync(files, context);
+                var command = new FileUploadCommand(files, context);
+                var result = await mediator.Send(command);
+                return result;
             })
             .DisableAntiforgery()
             .WithName("MultiUpload")

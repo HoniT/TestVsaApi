@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using src.Features.Files.Download;
 
@@ -9,9 +10,11 @@ namespace src.Features.Files.Download
         {
             app.MapGet("/download/{fileName}", (
                 string fileName,
-                FileDownloadHandler handler) =>
+                IMediator mediator) =>
             {
-                return handler.Handle(fileName);
+                var command = new FileDownloadCommand(fileName);
+                var result = mediator.Send(command);
+                return result;
             })
             .WithName("DownloadFile")
             .WithTags("Files");

@@ -1,8 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace src.Features.Files.Upload
 {
     public class FileUploadHandler
+        : IRequestHandler<FileUploadCommand, IResult>
     {
         private readonly IWebHostEnvironment _env;
 
@@ -11,10 +13,11 @@ namespace src.Features.Files.Upload
             _env = env;
         }
 
-        public async Task<IResult> HandleAsync(
-            IFormFileCollection files,
-            HttpContext context)
+        public async Task<IResult> Handle(
+            FileUploadCommand request,
+            CancellationToken ct)
         {
+            IFormFileCollection files = request.files;
             if (files == null || files.Count == 0)
                 return Results.BadRequest("No files uploaded");
 
@@ -42,8 +45,8 @@ namespace src.Features.Files.Upload
                 await file.CopyToAsync(stream);
 
                 var downloadUrl =
-                    $"{context.Request.Scheme}://" +
-                    $"{context.Request.Host}/files/{file.FileName}";
+                    $"{request.context.Request.Scheme}://" +
+                    $"{request.context.Request.Host}/files/{file.FileName}";
 
                 uploadedFiles.Add(new
                 {

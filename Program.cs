@@ -22,12 +22,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddMediatR(typeof(Program));
 
-builder.Services.AddScoped<GetAllEmployeesHandler>();
-builder.Services.AddScoped<UpdateEmployeeHandler>();
-
-builder.Services.AddScoped<FileUploadHandler>();
-builder.Services.AddScoped<FileDownloadHandler>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
